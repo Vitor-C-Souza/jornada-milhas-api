@@ -39,8 +39,6 @@ class depoimentosControllerTest {
     private depoimentosDtoReq dtoReq;
     private depoimentosDtoRes dtoRes;
 
-    private UriComponentsBuilder uri;
-
     private Long id;
     String json;
 

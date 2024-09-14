@@ -30,7 +30,7 @@ public class destinoController {
     @GetMapping
     public ResponseEntity<Page<destinoDtoRes>> findAll(@RequestParam(required = false) String nome, @PageableDefault Pageable pageable) {
         Page<destinoDtoRes> dtoResPage;
-        if (nome.isBlank()) {
+        if (nome == null) {
             dtoResPage = service.findAll(pageable);
         } else {
             dtoResPage = service.findBySearch(nome, pageable);
