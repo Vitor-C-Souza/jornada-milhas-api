@@ -4,7 +4,9 @@ import me.vitorcsouza.jornada_milhas_api.domain.dto.depoimentosDtoReq;
 import me.vitorcsouza.jornada_milhas_api.domain.dto.depoimentosDtoRes;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface depoimentosService {
     depoimentosDtoRes create(depoimentosDtoReq dto);
 

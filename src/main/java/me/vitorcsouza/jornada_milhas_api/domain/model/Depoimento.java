@@ -9,9 +9,8 @@ import me.vitorcsouza.jornada_milhas_api.domain.dto.depoimentosDtoReq;
 @Entity
 @Table(name = "depoimentos_tb")
 @Getter
-@Setter
 @NoArgsConstructor
-public class Depoimentos {
+public class Depoimento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,7 +18,7 @@ public class Depoimentos {
     private String autor;
     private String avatar;
 
-    public Depoimentos(depoimentosDtoReq dto) {
+    public Depoimento(depoimentosDtoReq dto) {
         createOrUpdate(dto);
     }
 

@@ -9,7 +9,7 @@ import me.vitorcsouza.jornada_milhas_api.domain.service.depoimentosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import me.vitorcsouza.jornada_milhas_api.domain.model.Depoimentos;
+import me.vitorcsouza.jornada_milhas_api.domain.model.Depoimento;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,14 +25,14 @@ public class depoimentosServiceImpl implements depoimentosService {
     @Override
     @Transactional
     public depoimentosDtoRes create(depoimentosDtoReq dto) {
-        Depoimentos depoimento = convert.toModel(dto);
+        Depoimento depoimento = convert.toModel(dto);
         repository.save(depoimento);
         return convert.toDto(depoimento);
     }
 
     @Override
     public depoimentosDtoRes findById(Long id) {
-        Optional<Depoimentos> depoimentoOptional = repository.findById(id);
+        Optional<Depoimento> depoimentoOptional = repository.findById(id);
         if (depoimentoOptional.isPresent()) {
             return convert.toDto(depoimentoOptional.get());
         }
@@ -42,19 +42,16 @@ public class depoimentosServiceImpl implements depoimentosService {
     @Override
     @Transactional
     public Page<depoimentosDtoRes> findAll(Pageable pag) {
-        Page<Depoimentos> depoimentosPage = repository.findAll(pag);
+        Page<Depoimento> depoimentosPage = repository.findAll(pag);
         return depoimentosPage.map(depoimentosDtoRes::new);
     }
 
     @Override
     @Transactional
     public depoimentosDtoRes update(Long id, depoimentosDtoReq dto) {
-        Depoimentos referenceById = repository.getReferenceById(id);
-        System.out.println(true);
+        Depoimento referenceById = repository.getReferenceById(id);
         referenceById.createOrUpdate(dto);
-        System.out.println(true);
         repository.save(referenceById);
-        System.out.println(true);
         return convert.toDto(referenceById);
     }
 
@@ -65,7 +62,7 @@ public class depoimentosServiceImpl implements depoimentosService {
 
     @Override
     public Page<depoimentosDtoRes> findRandom(Pageable pag) {
-        Page<Depoimentos> depoimentosPage = repository.findRandom(pag);
+        Page<Depoimento> depoimentosPage = repository.findRandom(pag);
         return depoimentosPage.map(depoimentosDtoRes::new);
     }
 }

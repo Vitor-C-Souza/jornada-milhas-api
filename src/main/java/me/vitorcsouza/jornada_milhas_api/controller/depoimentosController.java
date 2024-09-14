@@ -3,7 +3,7 @@ package me.vitorcsouza.jornada_milhas_api.controller;
 import jakarta.validation.Valid;
 import me.vitorcsouza.jornada_milhas_api.domain.dto.depoimentosDtoReq;
 import me.vitorcsouza.jornada_milhas_api.domain.dto.depoimentosDtoRes;
-import me.vitorcsouza.jornada_milhas_api.domain.service.impl.depoimentosServiceImpl;
+import me.vitorcsouza.jornada_milhas_api.domain.service.depoimentosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +18,7 @@ import java.net.URI;
 @RequestMapping
 public class depoimentosController {
     @Autowired
-    private depoimentosServiceImpl service;
+    private depoimentosService service;
 
     @PostMapping("/depoimentos")
     public ResponseEntity<depoimentosDtoRes> create(@RequestBody @Valid depoimentosDtoReq dto, UriComponentsBuilder uri) {
