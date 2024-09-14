@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0.37
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 6040
+    volumes:
+      - jornada-milhas-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  jornada-milhas-data:
+
