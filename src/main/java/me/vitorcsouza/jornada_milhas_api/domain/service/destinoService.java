@@ -2,6 +2,7 @@ package me.vitorcsouza.jornada_milhas_api.domain.service;
 
 import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoReq;
 import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoRes;
+import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoResWParamGet;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -9,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 public interface destinoService {
     destinoDtoRes create(destinoDtoReq dto);
 
-    destinoDtoRes findById(Long id);
+    destinoDtoResWParamGet findById(Long id);
 
     Page<destinoDtoRes> findAll(Pageable pag);
 

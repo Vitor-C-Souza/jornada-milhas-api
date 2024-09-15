@@ -25,4 +25,14 @@ public class Exceptions {
     public ResponseEntity<Void> elementNotFound() {
         return ResponseEntity.notFound().build();
     }
+
+    @ExceptionHandler(destinoNotFound.class)
+    public ResponseEntity<ResponseError> destinoNotFound(destinoNotFound ex){
+        ResponseError responseError = new ResponseError(
+                "Nenhum destino foi encontrado",
+                HttpStatus.BAD_REQUEST,
+                LocalDateTime.now()
+        );
+        return ResponseEntity.badRequest().body(responseError);
+    }
 }

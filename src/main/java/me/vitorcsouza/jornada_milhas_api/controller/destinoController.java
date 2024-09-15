@@ -3,6 +3,7 @@ package me.vitorcsouza.jornada_milhas_api.controller;
 import jakarta.validation.Valid;
 import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoReq;
 import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoRes;
+import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoResWParamGet;
 import me.vitorcsouza.jornada_milhas_api.domain.service.destinoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,13 +36,12 @@ public class destinoController {
         } else {
             dtoResPage = service.findBySearch(nome, pageable);
         }
-
         return ResponseEntity.ok(dtoResPage);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<destinoDtoRes> findById(@PathVariable Long id) {
-        destinoDtoRes dtoRes = service.findById(id);
+    public ResponseEntity<destinoDtoResWParamGet> findById(@PathVariable Long id) {
+        destinoDtoResWParamGet dtoRes = service.findById(id);
         return ResponseEntity.ok(dtoRes);
     }
 

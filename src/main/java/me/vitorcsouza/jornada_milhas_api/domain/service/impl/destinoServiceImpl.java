@@ -1,10 +1,11 @@
 package me.vitorcsouza.jornada_milhas_api.domain.service.impl;
 
-import jakarta.persistence.EntityNotFoundException;
 import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoReq;
 import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoRes;
+import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoResWParamGet;
 import me.vitorcsouza.jornada_milhas_api.domain.service.conversor.convertDestino;
 import me.vitorcsouza.jornada_milhas_api.domain.service.destinoService;
+import me.vitorcsouza.jornada_milhas_api.infra.exception.destinoNotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +14,6 @@ import me.vitorcsouza.jornada_milhas_api.domain.model.Destino;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -32,12 +32,14 @@ public class destinoServiceImpl implements destinoService {
     }
 
     @Override
-    public destinoDtoRes findById(Long id) {
+    public destinoDtoResWParamGet findById(Long id) {
         Optional<Destino> optionalDestino = repository.findById(id);
         if (optionalDestino.isPresent()) {
-            return convert.toDto(optionalDestino.get());
+            return convert.toDtoGetDetails(optionalDestino.get());
+        } else {
+            throw new destinoNotFound("Nenhum destino foi encontrado");
         }
-        throw new NoSuchElementException("Destino with this id not found.");
+
     }
 
     @Override
@@ -63,6 +65,9 @@ public class destinoServiceImpl implements destinoService {
     @Override
     public Page<destinoDtoRes> findBySearch(String nome, Pageable pageable) {
         Page<Destino> destino = repository.findBySearch(nome, pageable);
+        if(destino.isEmpty()){
+            throw new destinoNotFound("Nenhum destino foi encontrado");
+        }
         return destino.map(destinoDtoRes::new);
     }
 }

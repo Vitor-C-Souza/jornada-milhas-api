@@ -1,8 +1,8 @@
 package me.vitorcsouza.jornada_milhas_api.controller;
 
-import me.vitorcsouza.jornada_milhas_api.domain.dto.depoimentosDtoRes;
 import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoReq;
 import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoRes;
+import me.vitorcsouza.jornada_milhas_api.domain.dto.destinoDtoResWParamGet;
 import me.vitorcsouza.jornada_milhas_api.domain.model.Destino;
 import me.vitorcsouza.jornada_milhas_api.domain.service.destinoService;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,6 +37,7 @@ class destinoControllerTest {
 
     private destinoDtoReq dtoReq;
     private destinoDtoRes dtoRes;
+    private destinoDtoResWParamGet dtoResGet;
 
     private Long id;
     String json;
@@ -55,12 +56,20 @@ class destinoControllerTest {
     void setUp() {
         json = """
                   {
-                      "foto": "exemplo cubatão",
-                      "nome": "Cubatão",
-                      "preco": 99999999999.99
-                  }
+                     "foto1": "https://example.com/foto1.jpg",
+                     "foto2": "https://example.com/foto2.jpg",
+                     "nome": "Cubatão",
+                     "meta": "Explorar os melhores pontos turísticos de Cubatão",
+                     "textoDescritivo": "Uma descrição detalhada sobre o destino Cubatão, mencionando suas belezas naturais e locais históricos."
+                   }
                 """;
-        dtoReq = new destinoDtoReq("exemplo cubatão", "Cubatão", 99999999999.99);
+        dtoReq = new destinoDtoReq(
+                "https://example.com/foto1.jpg",
+                "https://example.com/foto2.jpg",
+                "Cubatão",
+                "Explorar os melhores pontos turísticos de Cubatão",
+                "Uma descrição detalhada sobre o destino Cubatão, mencionando suas belezas naturais e locais históricos."
+                );
         destino1 = new Destino(dtoReq);
         destino2 = new Destino(dtoReq);
         id = 1L;
@@ -90,7 +99,7 @@ class destinoControllerTest {
     @Test
     void DeveRetornarCodigo200ParaRetornarUmDestino() throws Exception {
         //ARRANGE
-        when(service.findById(id)).thenReturn(dtoRes);
+        when(service.findById(id)).thenReturn(dtoResGet);
 
         //ACT
         var response = mockMvc.perform(get("/destinos/" + id)
